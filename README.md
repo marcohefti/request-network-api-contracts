@@ -1,13 +1,24 @@
-# @marcohefti/request-network-api-contracts
+# Request Network API Contracts
 
 Canonical contracts shared by the Request Network API clients. The package
 houses the OpenAPI specification, metadata, and webhook fixtures that both the
 TypeScript and PHP SDKs consume.
 
-This workspace entry keeps the assets versioned in one place so we can split the
-SDKs into their own repositories without duplicating specs or fixtures. Clients
-will depend on this package via a local path (during monorepo development) or a
-Git submodule/git dependency after the split.
+This repository keeps the assets versioned in one place so language SDKs can
+reuse them without duplicating specs or fixtures. Clients consume it either
+via an npm dependency or as a Git submodule.
+
+## Installation
+
+Install via npm or pnpm:
+
+```bash
+# npm
+npm install --save-dev @marcohefti/request-network-api-contracts
+
+# pnpm
+pnpm add -D @marcohefti/request-network-api-contracts
+```
 
 ## Contents
 
@@ -23,7 +34,7 @@ Git submodule/git dependency after the split.
 ## Status
 
 - **Phase:** authoritative. SDKs read specs/fixtures directly from this package during build and test phases.
-- **Publishing:** no npm/Packagist release planned. The package will remain a Git dependency so repositories can sync contracts without duplicating files.
+- **Publishing:** intended primarily as a Git/npm dependency for tooling and tests rather than an end‑user package.
 
 ## Updating the spec
 
@@ -43,15 +54,3 @@ pnpm --filter "./packages/request-client-contracts" verify
 - [ ] Document Git submodule workflow for post-split repositories.
 
 See `docs/OVERVIEW.md` for deeper architectural context.
-
-## Installation
-
-Install via npm or pnpm:
-
-```bash
-# npm
-npm install --save-dev @marcohefti/request-network-api-contracts
-
-# pnpm
-pnpm add -D @marcohefti/request-network-api-contracts
-```
