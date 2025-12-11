@@ -1,6 +1,6 @@
 {
   "name": "@marcohefti/request-network-api-contracts",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "private": false,
   "description": "Shared contracts for Request Network API clients (OpenAPI spec, webhook fixtures).",
   "license": "MIT",
