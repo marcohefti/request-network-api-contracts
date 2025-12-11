@@ -12,4 +12,4 @@ change so SDK maintainers know when to regenerate code.
 -	**Notes:** Regeneration impact, required SDK updates, new fixtures
 
 ## History
-- *No entries yet* - initial import seeded via `pnpm --filter "./packages/request-api-client" prepare:spec` on 2025-11-06.
+- *No entries yet* - initial import seeded via the TypeScript client’s `pnpm run prepare:spec` tooling on 2025-11-06.

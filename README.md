@@ -38,14 +38,20 @@ pnpm add -D @marcohefti/request-network-api-contracts
 
 ## Updating the spec
 
-Use the TypeScript client's tooling to refresh the contracts in-place:
+Use the TypeScript client's tooling to refresh the contracts in-place. From the TypeScript client repository, run:
 
 ```bash
-pnpm --filter "./packages/request-api-client" prepare:spec
-pnpm --filter "./packages/request-client-contracts" verify
+pnpm prepare:spec
 ```
 
-`prepare:spec` downloads the latest OpenAPI document into `specs/openapi/`, refreshes metadata, and regenerates the TypeScript/Zod outputs in the client package. Follow with `verify` to sanity-check file sizes and presence before committing updates across both packages.
+This downloads the latest OpenAPI document into the contracts package's `specs/openapi/`, refreshes metadata, and regenerates the TypeScript/Zod outputs. Then verify the contracts package:
+
+```bash
+cd ../request-network-api-contracts
+npm run verify
+```
+
+The `verify` script sanity-checks file sizes and presence before committing updates across both packages.
 
 ## Future work
 

@@ -4,11 +4,14 @@ Use this checklist whenever the Request Network API publishes contract changes. 
 
 ## 1. Refresh the OpenAPI spec
 
-```bash
-pnpm --filter "./packages/request-api-client" prepare:spec
-```
-
-`prepare:spec` downloads the latest OpenAPI document into `specs/openapi/` (updating both the JSON and `.meta.json`) and regenerates the TypeScript + Zod outputs referenced by the client.
+- If you maintain the official TypeScript client alongside this package, run its
+  `pnpm run prepare:spec` task to download the latest OpenAPI document and
+  regenerate the generated types. That tooling is responsible for writing
+  `specs/openapi/request-network-openapi.json` and the corresponding
+  `.meta.json` file into this package.
+- If you are only using this repository, fetch the OpenAPI document directly
+  from the upstream Request API (`https://api.request.network/open-api/openapi.json`)
+  and update both the JSON and `.meta.json` files under `specs/openapi/`.
 
 ## 2. Update webhook schema (if needed)
 
@@ -22,11 +25,14 @@ pnpm --filter "./packages/request-api-client" prepare:spec
 
 ## 4. Verify assets
 
+From this repository, run:
+
 ```bash
-pnpm --filter "./packages/request-client-contracts" verify
+npm run verify
 ```
 
-The verification script asserts that the expected files exist and logs their sizes for a quick sanity check.
+The verification script asserts that the expected files exist and logs their
+sizes for a quick sanity check.
 
 ## 5. Document and commit
 

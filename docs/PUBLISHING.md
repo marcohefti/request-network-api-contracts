@@ -36,8 +36,7 @@ Use this checklist when preparing a release.
    ```bash
    npm login
    ```
-2. From the contracts package root (`packages/request-network-api-contracts`),
-   run the verifier:
+2. From the contracts package root, run the verifier:
    ```bash
    npm run verify
    ```
@@ -60,12 +59,11 @@ Use this checklist when preparing a release.
 
 ## Post-Release
 
-- [ ] Update TS and PHP clients to depend on the new version (devDependency in
-      the TS client; tooling dependency in the PHP client).
+- [ ] Update TypeScript and PHP clients (and any other SDKs) to depend on the
+      new version.
 - [ ] Run their spec/fixture sync scripts and parity guards:
   - TS: `pnpm run prepare:spec` + tests.
   - PHP: `composer update:spec`, `composer parity:openapi`, `composer parity:webhooks`.
-- [ ] Record any required client follow-up work in this monorepo’s tasks or the
-      external SDK repositories so consumers know which client versions pick up
-      the new contracts.
-
+- [ ] Record any required client follow-up work in the relevant SDK
+      repositories or your own release notes so consumers know which client
+      versions pick up the new contracts.
