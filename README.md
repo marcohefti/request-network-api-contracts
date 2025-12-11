@@ -1,4 +1,4 @@
-# @request/request-network-api-contracts
+# @marcohefti/request-network-api-contracts
 
 Canonical contracts shared by the Request Network API clients. The package
 houses the OpenAPI specification, metadata, and webhook fixtures that both the
@@ -18,7 +18,7 @@ Git submodule/git dependency after the split.
 
 ## Consumption
 
-- SDK packages import assets via `@request/request-network-api-contracts/<path>` (e.g., `@request/request-network-api-contracts/specs/openapi/request-network-openapi.json`).
+- SDK packages import assets via `@marcohefti/request-network-api-contracts/<path>` (e.g., `@marcohefti/request-network-api-contracts/specs/openapi/request-network-openapi.json`).
 
 ## Status
 
@@ -43,3 +43,15 @@ pnpm --filter "./packages/request-client-contracts" verify
 - [ ] Document Git submodule workflow for post-split repositories.
 
 See `docs/OVERVIEW.md` for deeper architectural context.
+
+## Installation
+
+Install via npm or pnpm:
+
+```bash
+# npm
+npm install --save-dev @marcohefti/request-network-api-contracts
+
+# pnpm
+pnpm add -D @marcohefti/request-network-api-contracts
+```
