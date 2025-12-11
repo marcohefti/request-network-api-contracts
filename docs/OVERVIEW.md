@@ -42,7 +42,7 @@ packages/request-client-contracts/
 ## Consumption Strategy
 
 - **Monorepo:** SDK packages reference files via the workspace package name
-  (`@request-suite/request-client-contracts/specs/...`). Build/validation scripts run from
+  (`@request/request-network-api-contracts/specs/...`). Build/validation scripts run from
   the monorepo root can read from this package without additional tooling.
 - **Post-split:** Each SDK repository will include this repo via Git submodule
   (or shallow git dependency) so the same files are available without copying.

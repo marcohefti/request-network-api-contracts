@@ -1,4 +1,4 @@
-# @request-suite/request-client-contracts
+# @request/request-network-api-contracts
 
 Canonical contracts shared by the Request Network API clients. The package
 houses the OpenAPI specification, metadata, and webhook fixtures that both the
@@ -18,7 +18,7 @@ Git submodule/git dependency after the split.
 
 ## Consumption
 
-- SDK packages import assets via `@request-suite/request-client-contracts/<path>` (e.g., `@request-suite/request-client-contracts/specs/openapi/request-network-openapi.json`).
+- SDK packages import assets via `@request/request-network-api-contracts/<path>` (e.g., `@request/request-network-api-contracts/specs/openapi/request-network-openapi.json`).
 
 ## Status
 
