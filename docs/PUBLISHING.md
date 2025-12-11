@@ -30,32 +30,44 @@ Use this checklist when preparing a release.
 - [ ] Tag strategy documented (e.g., `v0.x.y` for contract updates, semantic
       version bumps when contracts introduce breaking changes for SDKs).
 
-## Publishing Steps
+## Publishing Steps (Automated via GitHub Actions)
 
-1. Ensure you are logged into npm as `marcohefti` with publish access and 2FA enabled:
+Publishing is fully automated using GitHub Actions and OIDC trusted publishers. No npm tokens required.
+
+**To publish a new version:**
+
+1. Bump the version using npm:
    ```bash
-   npm login
+   npm version patch   # for bug fixes (0.5.1 -> 0.5.2)
+   npm version minor   # for new features (0.5.1 -> 0.6.0)
+   npm version major   # for breaking changes (0.5.1 -> 1.0.0)
    ```
-2. From the contracts package root, run the verifier:
+
+2. Push the tag to GitHub:
    ```bash
-   npm run verify
+   git push --follow-tags
    ```
-3. Bump the version in `package.json` (following SemVer for the contracts line,
-   e.g., `0.5.1` for additive changes) and commit:
-   ```bash
-   git add package.json docs/UPDATES.md specs fixtures
-   git commit -m "chore(contracts): prepare @marcohefti/request-network-api-contracts@<version>"
-   ```
-4. Tag the commit and push branch + tag:
-   ```bash
-   git tag v<version>
-   git push
-   git push --tags
-   ```
-5. Publish the package to npm:
-   ```bash
-   npm publish --access public --otp=<your_2fa_code>
-   ```
+
+3. GitHub Actions automatically:
+   - Verifies spec files exist (`node scripts/verify.js`)
+   - Publishes to npm using OIDC authentication
+   - Generates provenance attestations
+
+4. Verify the publish succeeded:
+   - Check GitHub Actions: https://github.com/marcohefti/request-network-api-contracts/actions
+   - Check npm: https://www.npmjs.com/package/@marcohefti/request-network-api-contracts
+
+**Prerequisites:**
+- Trusted publisher configured on npmjs.com (already set up)
+- Workflow file exists: `.github/workflows/publish.yml`
+- Repository uses npm 11.5.1+ in CI
+
+**Manual publish (emergency only):**
+If GitHub Actions is unavailable, you can publish manually:
+```bash
+npm login
+npm publish --access public
+```
 
 ## Post-Release
 
