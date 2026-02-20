@@ -12,4 +12,8 @@ change so SDK maintainers know when to regenerate code.
 -	**Notes:** Regeneration impact, required SDK updates, new fixtures
 
 ## History
-- *No entries yet* - initial import seeded via the TypeScript client’s `pnpm run prepare:spec` tooling on 2025-11-06.
+- **Date:** 2026-02-20
+- **Spec Version:** 2026-02-20 (`fetchedAt` from `request-network-openapi.meta.json`)
+- **Change Summary:** Synced upstream Request API OpenAPI spec; includes new `v2/payee-destination` operations and schema refinements consumed by TS/PHP clients.
+- **Source:** https://api.request.network/open-api/openapi.json
+- **Notes:** Requires regenerated SDK artifacts and parity checks in both `request-network-api-client-ts` and `request-network-api-client-php`.
