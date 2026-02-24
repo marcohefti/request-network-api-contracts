@@ -9,9 +9,14 @@ Use this checklist whenever the Request Network API publishes contract changes. 
   regenerate the generated types. That tooling is responsible for writing
   `specs/openapi/request-network-openapi.json` and the corresponding
   `.meta.json` file into this package.
+  - `prepare:spec` also applies local schema-drift patches before generation
+    (currently fee-shape compatibility for runtime payloads that return
+    `type: "protocol"` and nullable fee amounts).
 - If you are only using this repository, fetch the OpenAPI document directly
   from the upstream Request API (`https://api.request.network/open-api/openapi.json`)
-  and update both the JSON and `.meta.json` files under `specs/openapi/`.
+  and update both the JSON and `.meta.json` files under `specs/openapi/`, then
+  run `pnpm --filter "./packages/request-network-api-client-ts" patch:openapi`
+  from the workspace root before regenerating client artifacts.
 
 ## 2. Update webhook schema (if needed)
 

@@ -12,6 +12,12 @@ change so SDK maintainers know when to regenerate code.
 -	**Notes:** Regeneration impact, required SDK updates, new fixtures
 
 ## History
+- **Date:** 2026-02-24
+- **Spec Version:** 2026-02-24 (local drift patch over upstream OpenAPI payload mismatch)
+- **Change Summary:** Added compatibility patch for fee payload drift (`fees[].type` includes `protocol`, `fees[].amount` / `amountInUSD` nullable) and updated update workflow docs.
+- **Source:** https://api.request.network/open-api/openapi.json
+- **Notes:** Keeps contracts package as source of truth for generated clients while upstream schema catches up.
+
 - **Date:** 2026-02-20
 - **Spec Version:** 2026-02-20 (`fetchedAt` from `request-network-openapi.meta.json`)
 - **Change Summary:** Synced upstream Request API OpenAPI spec; includes new `v2/payee-destination` operations and schema refinements consumed by TS/PHP clients.

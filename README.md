@@ -53,6 +53,17 @@ npm run verify
 
 The `verify` script sanity-checks file sizes and presence before committing updates across both packages.
 
+### Local schema drift patching
+
+`prepare:spec` now applies a local compatibility patch before regeneration to cover known upstream schema drift (for example `fees[].amount = null` and `fees[].type = "protocol"` in runtime payloads). Reapply the patch without refetching via:
+
+```bash
+cd ../request-network-api-client-ts
+pnpm patch:openapi
+```
+
+This keeps contracts as the source of truth inside this workspace while upstream OpenAPI catches up.
+
 ## Future work
 
 - [ ] Publish webhook fixture guidelines and add validation to ensure both SDKs reference the same payload set.
