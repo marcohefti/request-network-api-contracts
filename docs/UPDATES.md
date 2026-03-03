@@ -12,6 +12,12 @@ change so SDK maintainers know when to regenerate code.
 -	**Notes:** Regeneration impact, required SDK updates, new fixtures
 
 ## History
+- **Date:** 2026-03-03
+- **Spec Version:** 0.16.1 (`fetchedAt` 2026-03-03T11:14:08.930Z)
+- **Change Summary:** Synced upstream Request API OpenAPI. Added `/v2/secure-payments` + `/v2/secure-payments/{token}`, removed `/v2/payee-destination*`, and introduced `GET /v2/request`.
+- **Source:** https://api.request.network/open-api/openapi.json
+- **Notes:** Local drift patch still applies (`fees[].type` includes `protocol`; fee amount fields nullable). Regenerate TS/PHP clients against this contracts revision before release.
+
 - **Date:** 2026-02-24
 - **Spec Version:** 2026-02-24 (local drift patch over upstream OpenAPI payload mismatch)
 - **Change Summary:** Added compatibility patch for fee payload drift (`fees[].type` includes `protocol`, `fees[].amount` / `amountInUSD` nullable) and updated update workflow docs.
