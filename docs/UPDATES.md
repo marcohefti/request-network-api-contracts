@@ -13,10 +13,10 @@ change so SDK maintainers know when to regenerate code.
 
 ## History
 - **Date:** 2026-03-10
-- **Spec Version:** 0.16.1 (`fetchedAt` 2026-03-10T07:38:53.828Z)
+- **Spec Version:** 0.16.1 (`fetchedAt` 2026-03-10T07:48:56.668Z)
 - **Change Summary:** Refreshed the upstream Request API OpenAPI fetch metadata. The patched contract JSON stayed unchanged after reapplying the local fee-schema drift patch.
 - **Source:** https://api.request.network/open-api/openapi.json
-- **Notes:** Local drift patch is still required (`fees[].type` includes `protocol`; fee amount fields remain nullable in committed contracts). TS/PHP clients can adopt `@marcohefti/request-network-api-contracts@0.6.1` without generated contract body changes.
+- **Notes:** Local drift patch is still required (`fees[].type` includes `protocol`; fee amount fields remain nullable in committed contracts). TS/PHP clients can adopt `@marcohefti/request-network-api-contracts@0.6.2` without generated contract body changes.
 
 - **Date:** 2026-03-03
 - **Spec Version:** 0.16.1 (`fetchedAt` 2026-03-03T11:14:08.930Z)
