@@ -12,6 +12,12 @@ change so SDK maintainers know when to regenerate code.
 -	**Notes:** Regeneration impact, required SDK updates, new fixtures
 
 ## History
+- **Date:** 2026-03-10
+- **Spec Version:** 0.16.1 (`fetchedAt` 2026-03-10T07:38:53.828Z)
+- **Change Summary:** Refreshed the upstream Request API OpenAPI fetch metadata. The patched contract JSON stayed unchanged after reapplying the local fee-schema drift patch.
+- **Source:** https://api.request.network/open-api/openapi.json
+- **Notes:** Local drift patch is still required (`fees[].type` includes `protocol`; fee amount fields remain nullable in committed contracts). TS/PHP clients can adopt `@marcohefti/request-network-api-contracts@0.6.1` without generated contract body changes.
+
 - **Date:** 2026-03-03
 - **Spec Version:** 0.16.1 (`fetchedAt` 2026-03-03T11:14:08.930Z)
 - **Change Summary:** Synced upstream Request API OpenAPI. Added `/v2/secure-payments` + `/v2/secure-payments/{token}`, removed `/v2/payee-destination*`, and introduced `GET /v2/request`.
