@@ -1,15 +1,9 @@
 {
   "event": "payment.failed",
-  "requestId": "req_fail1234567890",
-  "paymentReference": "0xfail1234567890abcdef1234567890abcdef1234",
-  "amount": "100.0",
-  "totalAmountPaid": "0.0",
-  "expectedAmount": "100.0",
-  "timestamp": "2025-08-28T18:25:45.995Z",
-  "paymentCurrency": "USDC",
-  "isCryptoToFiat": true,
-  "paymentProcessor": "request-network",
+  "requestId": "0151b394e3c482c5aebaa04eb04508a8db70595470760293f1b258ed96d1fafa93",
+  "requestID": "0151b394e3c482c5aebaa04eb04508a8db70595470760293f1b258ed96d1fafa93",
+  "paymentReference": "0x2c3366941274c34c",
+  "clientId": "cli_PLATFORM_CLIENT_ID",
   "subStatus": "insufficient_funds",
-  "failureReason": "Insufficient fiat liquidity",
-  "retryAfter": "2025-08-29T18:25:45.995Z"
+  "paymentProcessor": "request-network"
 }

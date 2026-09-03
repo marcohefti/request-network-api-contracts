@@ -1,0 +1,8 @@
+{
+  "event": "secure_payment.access_rejected",
+  "requestId": "0151b394e3c482c5aebaa04eb04508a8db70595470760293f1b258ed96d1fafa93",
+  "clientId": "cli_PLATFORM_CLIENT_ID",
+  "orchestratorId": "01ARZ3NDEKTSV4RRFFQ69G5FAW",
+  "attemptedPayerWalletAddress": "0x2e2e5c79f571ef1658d4c2d3684a1fe97dd30570",
+  "timestamp": "2026-08-10T10:05:00.000Z"
+}

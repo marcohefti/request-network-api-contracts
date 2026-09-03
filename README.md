@@ -22,8 +22,8 @@ pnpm add -D @marcohefti/request-network-api-contracts
 
 ## Contents
 
-- `specs/openapi/` – auto-generated REST contract and metadata (fetched from the Request API).
-- `specs/webhooks/` – manually curated webhook schema reference.
+- `specs/openapi/` – separate normalized Request API and Auth API contracts, source metadata, and release manifest.
+- `specs/webhooks/` – manually curated webhook schema and current/legacy event manifest.
 - `fixtures/webhooks/*.json` – canonical webhook payloads used across SDK test suites.
 - `docs/` – release log, update instructions, and parity notes.
 
@@ -38,36 +38,20 @@ pnpm add -D @marcohefti/request-network-api-contracts
 
 ## Updating the spec
 
-Use the TypeScript client's tooling to refresh the contracts in-place. From the TypeScript client repository, run:
+Refresh both upstream documents from this repository:
 
 ```bash
-pnpm prepare:spec
-```
-
-This downloads the latest OpenAPI document into the contracts package's `specs/openapi/`, refreshes metadata, and regenerates the TypeScript/Zod outputs. Then verify the contracts package:
-
-```bash
-cd ../request-network-api-contracts
+npm run sync:openapi
+npm run sync:webhooks
 npm run verify
 ```
 
-The `verify` script sanity-checks file sizes and presence before committing updates across both packages.
+`sync:openapi` fetches and normalizes the production Request and Auth APIs, applies only documented compatibility patches,
+and records raw/normalized hashes. Client code generation remains the responsibility of each client repository.
 
 ### Local schema drift patching
 
-`prepare:spec` now applies a local compatibility patch before regeneration to cover known upstream schema drift (for example `fees[].amount = null` and `fees[].type = "protocol"` in runtime payloads). Reapply the patch without refetching via:
-
-```bash
-cd ../request-network-api-client-ts
-pnpm patch:openapi
-```
-
-This keeps contracts as the source of truth inside this workspace while upstream OpenAPI catches up.
-
-## Future work
-
-- [ ] Publish webhook fixture guidelines and add validation to ensure both SDKs reference the same payload set.
-- [ ] Provide a version manifest so SDKs can pin contract revisions.
-- [ ] Document Git submodule workflow for post-split repositories.
+See `docs/OPENAPI-0.31.0-AUDIT.md` for the operation inventory and the evidence behind nullable-union, fee-drift,
+Secure-Payment-response, and Auth webhook-security patches.
 
 See `docs/OVERVIEW.md` for deeper architectural context.

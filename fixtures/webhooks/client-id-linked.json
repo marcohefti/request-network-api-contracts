@@ -1,0 +1,13 @@
+{
+  "event": "client_id.linked",
+  "clientId": "cli_PLATFORM_CLIENT_ID",
+  "orchestratorId": "01ARZ3NDEKTSV4RRFFQ69G5FAW",
+  "linkId": "01ARZ3NDEKTSV4RRFFQ69G5FAX",
+  "intentId": "01ARZ3NDEKTSV4RRFFQ69G5FAY",
+  "externalId": "merchant_123",
+  "destinationId": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e@eip155:8453#B4FD67BB:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+  "destinationWalletAddress": "0x742d35cc6634c0532925a3b844bc454e4438f44e",
+  "chain": "base",
+  "currency": "USDC",
+  "timestamp": "2026-08-14T10:00:00.000Z"
+}

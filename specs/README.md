@@ -3,24 +3,28 @@
 This folder holds the contracts consumed by the Request client SDKs.
 
 ```
-openapi/   # auto-generated from the Request REST API
+openapi/   # normalized Request and Auth REST APIs plus provenance
 webhooks/  # manually curated webhook schema
 ```
 
 ## `openapi/`
 - `request-network-openapi.json` – fetched via automation from the upstream
   Request API.
-- `request-network-openapi.meta.json` – metadata captured during fetch (e.g.
-  etag, timestamp, source URL).
+- `request-network-auth-openapi.json` – separately fetched Auth API contract.
+- `*.meta.json` – source URL, runtime host, timestamp, raw/normalized hashes,
+  and patch statistics.
+- `manifest.json` – release versions, operation counts, supported production
+  hosts, patches, and minimum compatible clients.
 
-These files should only change through the regeneration tooling in your SDKs
-(for example, the TypeScript client’s `pnpm run fetch:openapi` or broader
-`pnpm run prepare:spec` commands). Avoid manual edits. Rerun the fetch command
-when upstream changes land and commit the updated JSON + metadata.
+These files change through `npm run sync:openapi` in this repository. Do not
+merge the two APIs: their paths overlap while their hosts and credentials do
+not.
 
 ## `webhooks/`
 - `request-network-webhooks.json` – maintained manually. Update it when webhook
   documentation or behaviour changes, and keep fixtures/tests in sync.
+- `manifest.json` – classifies current versus legacy events and records
+  platform/orchestrator recipients.
 
 This separation ensures automation never overwrites the manual webhook spec while
 making it obvious which files are generated vs. curated.

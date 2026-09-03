@@ -1,6 +1,6 @@
 {
   "name": "@marcohefti/request-network-api-contracts",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "private": false,
   "description": "Shared contracts for Request Network API clients (OpenAPI spec, webhook fixtures).",
   "license": "MIT",
@@ -18,9 +18,12 @@
     "specs",
     "fixtures",
     "docs",
+    "scripts",
     "README.md"
   ],
   "scripts": {
+    "sync:openapi": "node scripts/sync-openapi.mjs",
+    "sync:webhooks": "node scripts/sync-webhooks.mjs",
     "verify": "node scripts/verify.js"
   }
 }

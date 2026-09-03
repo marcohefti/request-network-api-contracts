@@ -1,0 +1,13 @@
+{
+  "url": "https://auth.request.network/open-api/openapi.json",
+  "runtimeBaseUrl": "https://auth.request.network",
+  "fetchedAt": "2026-09-03T09:13:49.531Z",
+  "etag": null,
+  "lastModified": null,
+  "rawSha256": "9047ed549e768a44762c0d68785ebc495652d53127eaaded73452cebac1098f1",
+  "normalizedSha256": "b37039ced02dd198421280089642db409cdaeb2bbbf09a9753b6ad43043c39a1",
+  "patchStats": {
+    "nullableUnions": 8,
+    "webhookSecurityOperations": 5
+  }
+}

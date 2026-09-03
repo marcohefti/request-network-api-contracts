@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Request Network Webhooks",
-    "version": "0.1.0",
-    "description": "Webhook events sent by the Request Network API to subscribed endpoints. Each request is signed with an HMAC-SHA256 hex digest in the `x-request-network-signature` header (computed over the raw JSON body using your webhook secret). This community-maintained spec currently models the documented events (`payment.confirmed`, `payment.failed`, `payment.processing`, `payment_detail.updated`, `compliance.updated`). Additional payment lifecycle events such as \"Payment Partial\" or \"Payment Refunded\" are not yet included because the official docs do not publish canonical identifiers or payload schemas for them."
+    "version": "0.2.0",
+    "description": "Community-maintained schemas for current Request Network platform/orchestrator webhooks and explicitly classified legacy events. Payload examples follow the official webhook guide fetched 2026-09-03."
   },
   "webhooks": {
     "payment.confirmed": {
@@ -317,6 +317,158 @@
           }
         ]
       }
+    },
+    "client_id.linked": {
+      "post": {
+        "summary": "Client ID linked through hosted onboarding",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/XRequestNetworkSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientIdLinkedEvent"
+              },
+              "examples": {
+                "client_id_linked": {
+                  "$ref": "#/components/examples/client_id_linked"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Acknowledged"
+          },
+          "401": {
+            "description": "Signature verification failed"
+          }
+        },
+        "security": [
+          {
+            "RequestSignatureHMAC": []
+          }
+        ]
+      }
+    },
+    "kyt.screening.completed": {
+      "post": {
+        "summary": "KYT screening reached a definitive result",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/XRequestNetworkSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KytScreeningCompletedEvent"
+              },
+              "examples": {
+                "kyt_screening_completed": {
+                  "$ref": "#/components/examples/kyt_screening_completed"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Acknowledged"
+          },
+          "401": {
+            "description": "Signature verification failed"
+          }
+        },
+        "security": [
+          {
+            "RequestSignatureHMAC": []
+          }
+        ]
+      }
+    },
+    "secure_payment.user_event": {
+      "post": {
+        "summary": "Secure Payment Page user activity",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/XRequestNetworkSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurePaymentUserEvent"
+              },
+              "examples": {
+                "secure_payment_user_event": {
+                  "$ref": "#/components/examples/secure_payment_user_event"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Acknowledged"
+          },
+          "401": {
+            "description": "Signature verification failed"
+          }
+        },
+        "security": [
+          {
+            "RequestSignatureHMAC": []
+          }
+        ]
+      }
+    },
+    "secure_payment.access_rejected": {
+      "post": {
+        "summary": "Payer-wallet access rejected",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/XRequestNetworkSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurePaymentAccessRejectedEvent"
+              },
+              "examples": {
+                "secure_payment_access_rejected": {
+                  "$ref": "#/components/examples/secure_payment_access_rejected"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Acknowledged"
+          },
+          "401": {
+            "description": "Signature verification failed"
+          }
+        },
+        "security": [
+          {
+            "RequestSignatureHMAC": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -448,6 +600,24 @@
           "clientUserId": {
             "type": "string",
             "description": "Client user identifier associated with the webhook when available."
+          },
+          "clientId": {
+            "type": "string",
+            "description": "Platform Client ID associated with the event."
+          },
+          "orchestratorId": {
+            "type": "string",
+            "description": "Orchestrator associated with the event when applicable."
+          },
+          "payerAddress": {
+            "type": "string",
+            "nullable": true,
+            "description": "Resolved payer wallet when available."
+          },
+          "payerEoaAddress": {
+            "type": "string",
+            "nullable": true,
+            "description": "Connected payer EOA when available."
           }
         },
         "required": [
@@ -731,26 +901,261 @@
           }
         ],
         "description": "Recurring request generated from an existing request."
+      },
+      "ClientIdLinkedEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookBase"
+          },
+          {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "event": {
+                "const": "client_id.linked"
+              },
+              "clientId": {
+                "type": "string"
+              },
+              "orchestratorId": {
+                "type": "string"
+              },
+              "linkId": {
+                "type": "string"
+              },
+              "intentId": {
+                "type": "string"
+              },
+              "externalId": {
+                "type": "string"
+              },
+              "destinationId": {
+                "type": "string"
+              },
+              "destinationWalletAddress": {
+                "type": "string"
+              },
+              "chain": {
+                "type": "string"
+              },
+              "currency": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "event",
+              "clientId",
+              "orchestratorId",
+              "linkId",
+              "intentId",
+              "externalId",
+              "destinationId",
+              "destinationWalletAddress",
+              "chain",
+              "currency",
+              "timestamp"
+            ]
+          }
+        ],
+        "description": "Orchestrator-only hosted onboarding completion event."
+      },
+      "KytScreeningCompletedEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookBase"
+          },
+          {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "event": {
+                "const": "kyt.screening.completed"
+              },
+              "paymentToken": {
+                "type": "string"
+              },
+              "clientId": {
+                "type": "string"
+              },
+              "orchestratorId": {
+                "type": "string"
+              },
+              "walletAddress": {
+                "type": "string"
+              },
+              "eoaAddress": {
+                "type": "string"
+              },
+              "smartAccountAddress": {
+                "type": "string",
+                "nullable": true
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "approved",
+                  "rejected"
+                ]
+              },
+              "provider": {
+                "type": "string"
+              },
+              "policyId": {
+                "type": "string",
+                "nullable": true
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "event",
+              "paymentToken",
+              "clientId",
+              "walletAddress",
+              "eoaAddress",
+              "status",
+              "provider",
+              "timestamp"
+            ]
+          }
+        ],
+        "description": "Definitive Secure Payment KYT result."
+      },
+      "SecurePaymentUserEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookBase"
+          },
+          {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "event": {
+                "const": "secure_payment.user_event"
+              },
+              "userEvent": {
+                "type": "string",
+                "enum": [
+                  "wallet_connected",
+                  "payment_sent_to_wallet",
+                  "payment_approved_in_wallet"
+                ]
+              },
+              "securePaymentToken": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": "string"
+              },
+              "requestIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "clientId": {
+                "type": "string"
+              },
+              "orchestratorId": {
+                "type": "string"
+              },
+              "occurredAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "properties": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            },
+            "required": [
+              "event",
+              "userEvent",
+              "securePaymentToken",
+              "requestIds",
+              "clientId",
+              "occurredAt",
+              "timestamp",
+              "properties"
+            ]
+          }
+        ],
+        "description": "Best-effort browser activity; never settlement proof."
+      },
+      "SecurePaymentAccessRejectedEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookBase"
+          },
+          {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "event": {
+                "const": "secure_payment.access_rejected"
+              },
+              "requestId": {
+                "type": "string"
+              },
+              "clientId": {
+                "type": "string"
+              },
+              "orchestratorId": {
+                "type": "string"
+              },
+              "attemptedPayerWalletAddress": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "event",
+              "requestId",
+              "clientId",
+              "attemptedPayerWalletAddress",
+              "timestamp"
+            ]
+          }
+        ],
+        "description": "Platform-only payer allowlist rejection event."
       }
     },
     "examples": {
       "payment_confirmed": {
-        "summary": "Example from docs",
+        "summary": "Official current settlement example",
         "value": {
           "event": "payment.confirmed",
-          "requestId": "req_test123456789abcdef",
-          "requestID": "req_test123456789abcdef",
-          "paymentReference": "0x1234567890abcdef1234567890abcdef12345678",
-          "explorer": "https://scan.request.network/request/req_test123456789abcdef",
+          "requestId": "0151b394e3c482c5aebaa04eb04508a8db70595470760293f1b258ed96d1fafa93",
+          "requestID": "0151b394e3c482c5aebaa04eb04508a8db70595470760293f1b258ed96d1fafa93",
+          "paymentReference": "0x2c3366941274c34c",
+          "clientId": "cli_PLATFORM_CLIENT_ID",
+          "orchestratorId": "01ARZ3NDEKTSV4RRFFQ69G5FAW",
+          "explorer": "https://scan.request.network/request/0151b394e3c482c5aebaa04eb04508a8db70595470760293f1b258ed96d1fafa93",
           "amount": "100.0",
           "totalAmountPaid": "100.0",
           "expectedAmount": "100.0",
-          "timestamp": "2025-08-28T12:25:45.995Z",
+          "timestamp": "2025-10-03T14:30:00Z",
           "txHash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+          "payerAddress": "0x92Fc3406Fc6BB7A76aC63b2E8b9d02b1B9C3e4d5",
+          "payerEoaAddress": "0x7A1F20C4D58E9B0A3C6D4E2F1B8A5C7D9E0F1234",
           "network": "ethereum",
           "currency": "USDC",
           "paymentCurrency": "USDC",
           "isCryptoToFiat": false,
+          "subStatus": "",
           "paymentProcessor": "request-network",
           "fees": [
             {
@@ -762,12 +1167,15 @@
         }
       },
       "payment_failed": {
-        "summary": "Minimal failure example (fields vary by flow)",
+        "summary": "Official current failure example",
         "value": {
           "event": "payment.failed",
-          "requestId": "01e273ecc29d4b526df3a0f1f05ffc59372af8752c2b678096e49ac270416a7cdb",
-          "subStatus": "failed",
-          "timestamp": "2025-10-10T12:34:56Z"
+          "requestId": "0151b394e3c482c5aebaa04eb04508a8db70595470760293f1b258ed96d1fafa93",
+          "requestID": "0151b394e3c482c5aebaa04eb04508a8db70595470760293f1b258ed96d1fafa93",
+          "paymentReference": "0x2c3366941274c34c",
+          "clientId": "cli_PLATFORM_CLIENT_ID",
+          "subStatus": "insufficient_funds",
+          "paymentProcessor": "request-network"
         }
       },
       "payment_processing": {
@@ -843,6 +1251,72 @@
           "originalRequestPaymentReference": "0x1234567890abcdef1234567890abcdef12345678",
           "timestamp": "2025-11-04T05:21:22.149Z",
           "paymentProcessor": "request-network"
+        }
+      },
+      "client_id_linked": {
+        "summary": "Official hosted onboarding example",
+        "value": {
+          "event": "client_id.linked",
+          "clientId": "cli_PLATFORM_CLIENT_ID",
+          "orchestratorId": "01ARZ3NDEKTSV4RRFFQ69G5FAW",
+          "linkId": "01ARZ3NDEKTSV4RRFFQ69G5FAX",
+          "intentId": "01ARZ3NDEKTSV4RRFFQ69G5FAY",
+          "externalId": "merchant_123",
+          "destinationId": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e@eip155:8453#B4FD67BB:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+          "destinationWalletAddress": "0x742d35cc6634c0532925a3b844bc454e4438f44e",
+          "chain": "base",
+          "currency": "USDC",
+          "timestamp": "2026-08-14T10:00:00.000Z"
+        }
+      },
+      "kyt_screening_completed": {
+        "summary": "Official definitive KYT example",
+        "value": {
+          "event": "kyt.screening.completed",
+          "paymentToken": "01KYM5CZ51K0N1KJ4F8S73BE3N",
+          "clientId": "cli_PLATFORM_CLIENT_ID",
+          "orchestratorId": "01ARZ3NDEKTSV4RRFFQ69G5FAW",
+          "walletAddress": "0x2e2e5c79f571ef1658d4c2d3684a1fe97dd30570",
+          "eoaAddress": "0x2e2e5c79f571ef1658d4c2d3684a1fe97dd30570",
+          "smartAccountAddress": null,
+          "status": "approved",
+          "provider": "hypernative",
+          "policyId": "11111111-1111-4111-8111-811111111111",
+          "timestamp": "2026-08-14T10:00:00.000Z"
+        }
+      },
+      "secure_payment_user_event": {
+        "summary": "Official Secure Payment Page activity example",
+        "value": {
+          "event": "secure_payment.user_event",
+          "userEvent": "payment_approved_in_wallet",
+          "securePaymentToken": "spt_3fk29ax7",
+          "requestId": "01JD3E6JD46KY4KKV7X9V0MZ7W",
+          "requestIds": [
+            "01JD3E6JD46KY4KKV7X9V0MZ7W"
+          ],
+          "clientId": "cli_PLATFORM_CLIENT_ID",
+          "orchestratorId": "01ARZ3NDEKTSV4RRFFQ69G5FAW",
+          "occurredAt": "2026-08-05T14:03:21.512Z",
+          "timestamp": "2026-08-05T14:03:22.104Z",
+          "properties": {
+            "wallet_provider": "metamask",
+            "payment_submission_id": "0x6a4fe21b",
+            "payment_submission_id_type": "evm_tx_hash",
+            "selected_source_chain": "base",
+            "payment_type": "single"
+          }
+        }
+      },
+      "secure_payment_access_rejected": {
+        "summary": "Official payer allowlist rejection example",
+        "value": {
+          "event": "secure_payment.access_rejected",
+          "requestId": "0151b394e3c482c5aebaa04eb04508a8db70595470760293f1b258ed96d1fafa93",
+          "clientId": "cli_PLATFORM_CLIENT_ID",
+          "orchestratorId": "01ARZ3NDEKTSV4RRFFQ69G5FAW",
+          "attemptedPayerWalletAddress": "0x2e2e5c79f571ef1658d4c2d3684a1fe97dd30570",
+          "timestamp": "2026-08-10T10:05:00.000Z"
         }
       }
     }

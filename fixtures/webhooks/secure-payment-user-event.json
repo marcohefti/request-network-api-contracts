@@ -1,0 +1,20 @@
+{
+  "event": "secure_payment.user_event",
+  "userEvent": "payment_approved_in_wallet",
+  "securePaymentToken": "spt_3fk29ax7",
+  "requestId": "01JD3E6JD46KY4KKV7X9V0MZ7W",
+  "requestIds": [
+    "01JD3E6JD46KY4KKV7X9V0MZ7W"
+  ],
+  "clientId": "cli_PLATFORM_CLIENT_ID",
+  "orchestratorId": "01ARZ3NDEKTSV4RRFFQ69G5FAW",
+  "occurredAt": "2026-08-05T14:03:21.512Z",
+  "timestamp": "2026-08-05T14:03:22.104Z",
+  "properties": {
+    "wallet_provider": "metamask",
+    "payment_submission_id": "0x6a4fe21b",
+    "payment_submission_id_type": "evm_tx_hash",
+    "selected_source_chain": "base",
+    "payment_type": "single"
+  }
+}

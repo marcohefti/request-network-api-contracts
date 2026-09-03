@@ -12,6 +12,14 @@ change so SDK maintainers know when to regenerate code.
 -	**Notes:** Regeneration impact, required SDK updates, new fixtures
 
 ## History
+- **Date:** 2026-09-03
+- **Spec Version:** Request API 0.31.0; Auth API 0.14.0; contracts 0.7.0
+- **Change Summary:** Added the separate Auth contract, synchronized all 82 Request operations, removed two obsolete
+  payment-intent send operations, added contract provenance, and expanded the current webhook catalogue.
+- **Source:** https://api.request.network/open-api/openapi.json and https://auth.request.network/open-api/openapi.json
+- **Notes:** Breaking pre-1.0 contract update. Preserves documented fee/runtime drift, normalizes invalid OpenAPI 3.0 null
+  unions, and repairs known Secure Payment response/Auth webhook security defects. Requires TS/PHP clients 0.7.0+.
+
 - **Date:** 2026-03-10
 - **Spec Version:** 0.16.1 (`fetchedAt` 2026-03-10T07:48:56.668Z)
 - **Change Summary:** Refreshed the upstream Request API OpenAPI fetch metadata. The patched contract JSON stayed unchanged after reapplying the local fee-schema drift patch.

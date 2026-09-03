@@ -5,7 +5,7 @@
 Centralise the Request Network REST contracts and test fixtures in one place so
 all language clients stay in sync:
 
-- **OpenAPI spec** - canonical JSON used to generate DTOs, schema validators,
+- **OpenAPI specs** - separate Request API and Auth API JSON used to generate DTOs, schema validators,
   and parity tests.
 - **OpenAPI metadata** - etag/fetched-at/source info to track when the spec
   last changed.
@@ -26,7 +26,9 @@ Git dependency.
 │   ├── README.md                     # explains generated vs manual assets
 │   ├── openapi/
 │   │   ├── request-network-openapi.json
-│   │   └── request-network-openapi.meta.json
+│   │   ├── request-network-auth-openapi.json
+│   │   ├── *.meta.json
+│   │   └── manifest.json
 │   └── webhooks/
 │       └── request-network-webhooks.json
 ├── fixtures/
@@ -51,10 +53,9 @@ Git dependency.
 
 ## Update Workflow
 
-1. Refresh the OpenAPI spec (see `docs/UPDATE-WORKFLOW.md` for details). When
-   you maintain the TypeScript client alongside this package, that typically
-   means running its `pnpm run prepare:spec` task so the latest OpenAPI
-   document and metadata land in `specs/openapi/`.
+1. Refresh both OpenAPI specs with `npm run sync:openapi` (see
+   `docs/UPDATE-WORKFLOW.md`). The contracts repository owns fetch,
+   normalization, patch provenance, and release metadata.
 2. Update webhook fixtures in `fixtures/webhooks/` when Request publishes new
    payloads. Pair every new fixture with test coverage in each SDK.
 3. Run `npm run verify` from this repository to confirm the expected files are
@@ -65,8 +66,4 @@ Git dependency.
 5. Append an entry to `docs/UPDATES.md` capturing the date, upstream
    reference, and required SDK follow-up.
 
-## Related Backlog Tasks
-
-- **Track contract versioning** - provide a manifest so SDKs can pin/compare revisions.
-- **Webhook fixture parity automation** - ensure both SDKs validate against the shared payload set.
-- **Document submodule workflow** - outline how downstream repositories should consume this package post-split.
+The package is product-neutral: it contains no connector, WooCommerce, or CamelPay behavior.

@@ -1,0 +1,46 @@
+{
+  "contractsVersion": "0.7.0",
+  "fetchedAt": "2026-09-03T09:13:49.531Z",
+  "defaultEnvironment": "production",
+  "supportedRuntimeHosts": [
+    "https://api.request.network",
+    "https://auth.request.network"
+  ],
+  "minimumCompatibleClients": {
+    "typescript": "0.7.0",
+    "php": "0.7.0"
+  },
+  "sources": [
+    {
+      "id": "request-api",
+      "filename": "request-network-openapi.json",
+      "sourceUrl": "https://api.request.network/open-api/openapi.json",
+      "runtimeBaseUrl": "https://api.request.network",
+      "openapi": "3.0.0",
+      "apiVersion": "0.31.0",
+      "operationCount": 82,
+      "rawSha256": "6b93f5b4a16cbc84e1bd1b65e4dbab804dbcdeb1ce623c125691f39e0e09bb3a",
+      "normalizedSha256": "284d42ef291c5ab83cb3328431112f82d847fb24228f9ca41a5b2f9272ca1ecd",
+      "patches": [
+        "oas30-nullable-unions",
+        "runtime-fee-drift",
+        "secure-payment-response-shapes"
+      ]
+    },
+    {
+      "id": "auth-api",
+      "filename": "request-network-auth-openapi.json",
+      "sourceUrl": "https://auth.request.network/open-api/openapi.json",
+      "runtimeBaseUrl": "https://auth.request.network",
+      "openapi": "3.0.0",
+      "apiVersion": "0.14.0",
+      "operationCount": 26,
+      "rawSha256": "9047ed549e768a44762c0d68785ebc495652d53127eaaded73452cebac1098f1",
+      "normalizedSha256": "b37039ced02dd198421280089642db409cdaeb2bbbf09a9753b6ad43043c39a1",
+      "patches": [
+        "oas30-nullable-unions",
+        "platform-webhook-client-id-auth"
+      ]
+    }
+  ]
+}

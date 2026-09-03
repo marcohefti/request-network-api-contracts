@@ -10,13 +10,13 @@ Use this checklist when preparing a release.
 
 - [x] `package.json` metadata is correct:
   - `name: "@marcohefti/request-network-api-contracts"`
-  - `version` bumped according to the changes (0.5.x for the initial public line).
+  - `version` bumped according to the reviewed compatibility change.
   - `"private": false` and `"license": "MIT"`.
   - `"files"` includes `specs`, `fixtures`, `docs`, and `README.md`.
 - [x] `README.md` and `docs/OVERVIEW.md` describe the current contents (OpenAPI,
       webhooks, fixtures) and how SDKs should consume them.
-- [x] OpenAPI spec and metadata are refreshed via the TypeScript client’s tooling
-      (see `docs/UPDATE-WORKFLOW.md` step 1).
+- [x] Request/Auth OpenAPI specs, metadata, and manifest are refreshed through
+      this repository (see `docs/UPDATE-WORKFLOW.md` step 1).
 - [x] Webhook schema (`specs/webhooks/request-network-webhooks.json`) and
       fixtures under `fixtures/webhooks/**` reflect the latest published webhook
       events.
@@ -27,8 +27,8 @@ Use this checklist when preparing a release.
 
 - [x] `docs/UPDATES.md` records the latest contract update (date, summary,
       upstream source, required SDK follow-up).
-- [ ] Tag strategy documented (e.g., `v0.x.y` for contract updates, semantic
-      version bumps when contracts introduce breaking changes for SDKs).
+- [x] Tags use `v0.x.y`; breaking pre-1.0 client-contract changes increment the
+      minor version.
 
 ## Publishing Steps (Automated via GitHub Actions)
 
@@ -38,9 +38,8 @@ Publishing is fully automated using GitHub Actions and OIDC trusted publishers. 
 
 1. Bump the version using npm:
    ```bash
-   npm version patch   # for bug fixes (0.5.1 -> 0.5.2)
-   npm version minor   # for new features (0.5.1 -> 0.6.0)
-   npm version major   # for breaking changes (0.5.1 -> 1.0.0)
+   npm version patch   # compatible contract corrections
+   npm version minor   # breaking pre-1.0 contract changes
    ```
 
 2. Push the tag to GitHub:

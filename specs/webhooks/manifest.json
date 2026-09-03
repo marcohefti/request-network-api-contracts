@@ -1,0 +1,48 @@
+{
+  "version": "0.2.0",
+  "source": "https://docs.request.network/api-reference/webhooks",
+  "fetchedAt": "2026-09-03",
+  "currentEvents": {
+    "client_id.linked": {
+      "fixture": "client-id-linked.json",
+      "recipients": ["orchestrator"]
+    },
+    "payment.confirmed": {
+      "fixture": "payment-confirmed.json",
+      "recipients": ["platform", "orchestrator"]
+    },
+    "payment.failed": {
+      "fixture": "payment-failed.json",
+      "recipients": ["platform"]
+    },
+    "kyt.screening.completed": {
+      "fixture": "kyt-screening-completed.json",
+      "recipients": ["platform", "orchestrator"]
+    },
+    "secure_payment.user_event": {
+      "fixture": "secure-payment-user-event.json",
+      "recipients": ["platform", "orchestrator"]
+    },
+    "secure_payment.access_rejected": {
+      "fixture": "secure-payment-access-rejected.json",
+      "recipients": ["platform"]
+    }
+  },
+  "legacyEvents": {
+    "payment.partial": "payment-partial.json",
+    "payment.refunded": "payment-refunded.json",
+    "payment.processing": "payment-processing.json",
+    "payment_detail.updated": [
+      "payment-detail-approved.json",
+      "payment-detail-failed.json",
+      "payment-detail-pending.json",
+      "payment-detail-verified.json"
+    ],
+    "compliance.updated": [
+      "compliance-approved.json",
+      "compliance-pending.json",
+      "compliance-rejected.json"
+    ],
+    "request.recurring": "request-recurring.json"
+  }
+}

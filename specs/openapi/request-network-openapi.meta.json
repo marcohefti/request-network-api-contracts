@@ -1,6 +1,15 @@
 {
   "url": "https://api.request.network/open-api/openapi.json",
-  "fetchedAt": "2026-03-10T07:48:56.668Z",
+  "runtimeBaseUrl": "https://api.request.network",
+  "fetchedAt": "2026-09-03T09:13:49.531Z",
   "etag": null,
-  "lastModified": null
+  "lastModified": null,
+  "rawSha256": "6b93f5b4a16cbc84e1bd1b65e4dbab804dbcdeb1ce623c125691f39e0e09bb3a",
+  "normalizedSha256": "284d42ef291c5ab83cb3328431112f82d847fb24228f9ca41a5b2f9272ca1ecd",
+  "patchStats": {
+    "nullableUnions": 8,
+    "feeEnums": 4,
+    "feeAmounts": 7,
+    "securePaymentResponses": 5
+  }
 }
